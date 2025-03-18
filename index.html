@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エンジニアポートフォリオ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 変数 */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --success-color: #2ecc71;
+            --text-color: #333;
+            --border-radius: 5px;
+        }
+        
+        /* 基本スタイル */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* ヘッダースタイル */
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .burger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/600') center center/cover no-repeat;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+        
+        .hero p.no-centered {
+            text-align: left;
+            margin-left: 0;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        /* 自己紹介セクション */
+        .about {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--dark-color);
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .section-title .underline {
+            height: 4px;
+            width: 70px;
+            background-color: var(--primary-color);
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 30px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+        }
+        
+        .skills {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skill {
+            margin-bottom: 20px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        /* プロジェクトセクション */
+        .projects {
+            padding: 100px 0;
+            background-color: var(--light-color);
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+        
+        .project-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        
+        .project-card:hover .project-img img {
+            transform: scale(1.1);
+        }
+        
+        .project-img iframe {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+        
+        .project-card:hover .project-img iframe {
+            opacity: 0.9;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-content p {
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        
+        .tag {
+            background-color: #e0e0e0;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .project-links a {
+            margin-right: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* 経験セクション */
+        .experience {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -12px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .timeline-content .company {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .timeline-content .date {
+            color: #888;
+            margin-bottom: 10px;
+        }
+        
+        /* お問い合わせセクション */
+        .contact {
+            padding: 100px 0;
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .contact .section-title {
+            color: white;
+        }
+        
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+        
+        .flex.justify-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        
+        .contact-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .contact-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .contact-links a:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        /* フッター */
+        footer {
+            background-color: #222;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        
+        /* レスポンシブ対応 */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                height: 92vh;
+                top: 8vh;
+                background-color: var(--dark-color);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 50%;
+                transform: translateX(100%);
+                transition: transform 0.5s ease-in;
+                z-index: 999;
+            }
+            
+            .nav-links li {
+                opacity: 0;
+                margin: 20px 0;
+            }
+            
+            .burger {
+                display: block;
+            }
+            
+            .nav-active {
+                transform: translateX(0%);
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+                left: 18px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1>Engineering Portfolio</h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#about">自己紹介</a></li>
+                    <li><a href="#projects">プロジェクト</a></li>
+                    <li><a href="#experience">職務経歴</a></li>
+                    <li><a href="#contact">お問い合わせ</a></li>
+                </ul>
+                <div class="burger">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ヒーローセクション -->
+    <section class="hero">
+        <div class="container ">
+            <h1>Yuki Obata's Engineering Portfolio</h1>
+            <p>業務効率化ツールとデータ駆動型アプリケーションの開発</p>
+            <a href="#projects" class="btn">作品を見る</a>
+        </div>
+    </section>
+
+    <!-- 自己紹介セクション -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>私について</h3>
+                    <p>早稲田大学基幹理工学部の3年生で、自動化、データ分析、アプリケーション開発を専門とするソフトウェアエンジニアです。フロントエンドとバックエンドの両方の技術に精通しています。</p>
+                    <p>シフト管理システム、データ可視化ツール、業務プロセスの自動化ソリューションの構築など業務委託で複数のワークフローを効率化し、実用的なアプリケーションを提供しています。</p>
+                    <p>クリーンで保守性の高いコードの作成と、実際の問題を解決する直感的なUIの設計が得意です。</p>
+                    
+                    <h3 style="margin-top: 30px;">資格</h3>
+                    <ul style="list-style-type: none; padding-left: 0; margin-bottom: 25px;">
+                        <li><i class="fas fa-certificate" style="color: var(--primary-color); margin-right: 10px;"></i>TOEFL iBT 99点</li>
+                        <li><i class="fas fa-certificate" style="color: var(--primary-color); margin-right: 10px;"></i>TOEIC L&R 935点</li>
+                        <li><i class="fas fa-certificate" style="color: var(--primary-color); margin-right: 10px;"></i>統計検定2級</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- プロジェクトセクション -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>Projects</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="projects-grid">
+                <!-- ことば侍プロジェクト（強調表示） -->
+                <div class="project-card" style="transform: scale(1.03); border: 2px solid var(--primary-color); box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);">
+                    <div class="project-img" style="position: relative;">
+                        <div style="position: absolute; top: 10px; right: 10px; background-color: var(--primary-color); color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; z-index: 5;">
+                            進行中
+                        </div>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/s3K8OU8-_B4" title="ことば侍デモ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="project-content">
+                        <h3 style="color: var(--primary-color); font-size: 1.7rem;">ことば侍</h3>
+                        <p>LLMを活用した、世界初の日本語手書き文章添削AI。</p>
+                        <div class="project-tags">
+                            <span class="tag" style="background-color: var(--primary-color); color: white;">最新プロジェクト</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">NLP</span>
+                            <span class="tag">機械学習</span>
+                            <span class="tag">API開発</span>
+                        </div>
+                                        </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="PieceInダッシュボード_cover.PNG" alt="アポイントメント分析ダッシュボード">
+                    </div>
+                    <div class="project-content">
+                        <h3>パフォーマンス管理システム</h3>
+                        <p>従業員のパフォーマンスを自動でダッシュボートに反映させる営業補助システム。</p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Google Apps Script</span>
+                            <span class="tag">Excel</span>
+                            <span class="tag">データ可視化</span>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="下書き例.png" alt="Web予約自動化">
+                    </div>
+                    <div class="project-content">
+                        <h3>Web予約自動化システム</h3>
+                        <p>自動でオンライン予約をするためのシステム。Selenium WebDriverを使用したブラウザ自動化と並列化機能を含む。</p>
+                        <div class="project-tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Selenium</span>
+                            <span class="tag">自動化</span>
+                            <span class="tag">WebDriver</span>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-img">
+                        <img src="tinyStories例.png" alt="時間変換ツール">
+                    </div>
+                    <div class="project-content">
+                        <h3>言語モデルの開発</h3>
+                        <p>近年のソフトウェアの進化によるLLMの性能向上に先駆け、効率化に取り組む。</p>
+                        <div class="project-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Google Apps Script</span>
+                            <span class="tag">日付管理</span>
+                            <span class="tag">ユーティリティツール</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 職務経歴セクション -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Experience</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="timeline-content">
+                <h3>ソフトウェアエンジニア & セールス</h3>
+                <div class="company">PieceIn株式会社</div>
+                <div class="date">2023年12月 - 現在</div>
+                <p>シフト管理のためのスケジューリングシステムの開発と最適化。パフォーマンス追跡・分析のためのデータ可視化ダッシュボードの作成。業務効率を35%向上させる自動化ソリューションの実装。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- お問い合わせセクション -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Contact</h2>
+                <div class="underline"></div>
+            </div>    
+            <div class="flex justify-content">
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> yukiobata1(at)gmail.com</p>
+                    <div class="contact-links">
+                        <a href="https://github.com/yukiobata1" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/yuki-obata-a0016531b/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+        </div>
+    </footer>
+
+    <script>
+        // モバイルナビゲーション
+        const navSlide = () => {
+            const burger = document.querySelector('.burger');
+            const nav = document.querySelector('.nav-links');
+            const navLinks = document.querySelectorAll('.nav-links li');
+            
+            burger.addEventListener('click', () => {
+                // ナビゲーションの切り替え
+                nav.classList.toggle('nav-active');
+                
+                // リンクのアニメーション
+                navLinks.forEach((link, index) => {
+                    if (link.style.animation) {
+                        link.style.animation = '';
+                    } else {
+                        link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
+                    }
+                });
+                
+                // ハンバーガーアニメーション
+                burger.classList.toggle('toggle');
+            });
+        };
+        
+        // スムーススクロール
+        const smoothScroll = () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // モバイルメニューが開いていれば閉じる
+                    const nav = document.querySelector('.nav-links');
+                    if (nav.classList.contains('nav-active')) {
+                        nav.classList.remove('nav-active');
+                        document.querySelector('.burger').classList.remove('toggle');
+                    }
+                });
+            });
+        };
+        
+        // フォーム送信（デモ用 - 実際の使用ではバックエンド処理が必要です）
+        const formSubmit = () => {
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('メッセージをいただきありがとうございます！これはデモフォームであり、実際にはメールを送信しません。');
+                this.reset();
+            });
+        };
+        
+        // 関数の呼び出し
+        navSlide();
+        smoothScroll();
+        formSubmit();
+    </script>
+</body>
+</html>
